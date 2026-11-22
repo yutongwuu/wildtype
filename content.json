@@ -1,0 +1,100 @@
+{
+  "site": {
+    "title": "Yutong Wu | Wildtype",
+    "email": "yutongw2026@outlook.com",
+    "logo": "",
+    "logoAlt": "Wildtype home"
+  },
+  "text": {
+    "brand": "\n",
+    "name": "Hi there, My name is Yutong Wu 雨潼 (/yoo-tong/). ",
+    "eyebrow": "BIOLOGY · PERCEPTION · ENGINEERING",
+    "intro": "I'm a neuroengineer in practice and a natural scientist at heart. My background is in computational cognitive science and biology at Wellesley College, with research and coursework at MIT and the Max Planck Institute for Biological Cybernetics.",
+    "qtitle": "Two long-term questions I'm interested in are:",
+    "q1": "How do biological systems perceive and understand the physical world, and how can engineered systems or technology be inspired by such discoveries?",
+    "q2": "How should technology be designed and applied to augment a person's cognition and abilities over the long term, in a shape the nervous system is already used to?",
+    "philosophy": "[你为什么以动物、昆虫与细胞介绍自己的项目？在这里写下你的想法。]",
+    "outside": "Outside the lab, I enjoy photography, learning languages, playing music (Guzheng), and theater.",
+    "footer": "Contact: yutongw2026@outlook.com",
+    "Engineering_Work": "[在这里介绍你的工程与研究项目。]",
+    "Arts": "[在这里添加你的艺术创作。]",
+    "Readings": "[在这里添加阅读笔记。]",
+    "Blog": "[在这里添加你的文章。]",
+    "bioTraining": "I'm grateful to my training in biology, for showing me the wondrous world of how organisms and their societies actually work; to computer science, for teaching me how to formalize and build; and to philosophy, for giving me an abstract and reflective foundation for the nature of my inquiry and creation.",
+    "workIntro": "I'm currently a development engineer at a BCI startup focused on building an sEEG-based brain foundation model. My work focuses on",
+    "workA": "building a fully non-invasive interface ecosystem (sEMG, EEG, eye tracking, force feedback, and physiological health signals) for applications in assistive technology and human-robot interaction, and",
+    "workB": "researching a brain foundation model that learns transferable neural representations to decode human intent and enable adaptive interaction."
+  },
+  "settings": {
+    "leftSize": 16,
+    "leftLine": 1.7,
+    "leftParagraph": 20,
+    "leftAlign": "left",
+    "width": 1280,
+    "left": 51,
+    "gap": 90,
+    "top": 30,
+    "body": 18,
+    "title": 64,
+    "animal": 140,
+    "font": "serif"
+  },
+  "projects": [
+    {
+      "name": "Salticid",
+      "caption": "Gaze + EMG Cursor Interface for ",
+      "image": "",
+      "imageAlt": "Salticid illustration",
+      "url": ""
+    },
+    {
+      "name": "Petersii",
+      "caption": "Biosignal modeling",
+      "image": "",
+      "imageAlt": "Petersii illustration",
+      "url": ""
+    },
+    {
+      "name": "Eye-tracking Controlled Robot",
+      "caption": "Not yet named",
+      "image": "",
+      "imageAlt": "Eye-tracking Controlled Robot illustration",
+      "url": ""
+    },
+    {
+      "name": "Cell-free",
+      "caption": "Biological systems",
+      "image": "",
+      "imageAlt": "Cell-free illustration",
+      "url": ""
+    },
+    {
+      "name": "3D Print Projects",
+      "caption": "",
+      "image": "",
+      "imageAlt": "3D Print Projects illustration",
+      "url": ""
+    },
+    {
+      "name": "Biosignal Agent System",
+      "caption": "Observing humans through biosignals",
+      "image": "",
+      "imageAlt": "Biosignal Agent System illustration",
+      "url": ""
+    },
+    {
+      "name": "Bat",
+      "caption": "mmWave sensing",
+      "image": "",
+      "imageAlt": "Bat illustration",
+      "url": ""
+    },
+    {
+      "name": "Mantis shrimp",
+      "caption": "Animal vision",
+      "image": "",
+      "imageAlt": "Mantis shrimp illustration",
+      "url": ""
+    }
+  ]
+}
