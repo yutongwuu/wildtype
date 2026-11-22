@@ -29,3 +29,11 @@
 ## 页面与可访问性
 
 目前 Engineering Work / Arts / Readings / Blog 显示可编辑的占位内容，项目详情尚未补齐。使用语义标题、有序列表、键盘焦点和替代文字；仍需实际 NVDA、键盘和手机测试，未声称通过完整可访问性审计。
+
+## 项目详情页面
+
+`projects/` 下的七个 HTML 可以直接在 GitHub 编辑。页面共享 `assets/style.css`，保持首页背景和小字号排版。项目正文目前为明确标注的占位内容，请替换为自己的项目介绍和实际成果。
+
+添加 PNG：上传到 `assets/images/`，再在项目 HTML 使用 `<img src="../assets/images/example.png" alt="图片说明">`。新增项目或改名时同步修改 `content.json` 和项目页侧栏；目前项目页面是独立静态 HTML，不会自动由 JSON 重建。
+
+Cell-free 暂无外部目标网址，保留原状。确定后填写 `content.json` 对应项目的 `url`，并将各项目页侧栏里的 Cell-free 项改为该外部链接。

@@ -45,21 +45,21 @@
       "caption": "Gaze + EMG Cursor Interface for ",
       "image": "",
       "imageAlt": "Salticid illustration",
-      "url": ""
+      "url": "projects/salticid.html"
     },
     {
       "name": "Petersii",
       "caption": "Biosignal modeling",
       "image": "",
       "imageAlt": "Petersii illustration",
-      "url": ""
+      "url": "projects/petersii.html"
     },
     {
       "name": "Eye-tracking Controlled Robot",
       "caption": "Not yet named",
       "image": "",
       "imageAlt": "Eye-tracking Controlled Robot illustration",
-      "url": ""
+      "url": "projects/eye-tracking-robot.html"
     },
     {
       "name": "Cell-free",
@@ -73,28 +73,28 @@
       "caption": "",
       "image": "",
       "imageAlt": "3D Print Projects illustration",
-      "url": ""
+      "url": "projects/3d-print-projects.html"
     },
     {
       "name": "Biosignal Agent System",
       "caption": "Observing humans through biosignals",
       "image": "",
       "imageAlt": "Biosignal Agent System illustration",
-      "url": ""
+      "url": "projects/biosignal-agent.html"
     },
     {
       "name": "Bat",
       "caption": "mmWave sensing",
       "image": "",
       "imageAlt": "Bat illustration",
-      "url": ""
+      "url": "projects/bat.html"
     },
     {
       "name": "Mantis shrimp",
       "caption": "Animal vision",
       "image": "",
       "imageAlt": "Mantis shrimp illustration",
-      "url": ""
+      "url": "projects/mantis-shrimp.html"
     }
   ]
 }

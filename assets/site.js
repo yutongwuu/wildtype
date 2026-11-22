@@ -40,9 +40,9 @@
         }
         const url = safeURL(p.url);
         if (url) {
-          const heading = article.querySelector('.taxon');
-          const link = document.createElement('a'); link.href = url; link.textContent = p.name;
-          heading.replaceChildren(link);
+          const link = document.createElement('a'); link.href = url; link.className = 'project-link';
+          while (article.firstChild) link.append(article.firstChild);
+          article.append(link);
         }
         projects.append(article);
       });
@@ -50,7 +50,20 @@
       const section = document.createElement('section'); section.className = 'other';
       const h1 = document.createElement('h1'); h1.textContent = page;
       const p = document.createElement('p'); p.textContent = content.text[page.replaceAll(' ', '_')] || '';
-      section.append(h1, p); main.append(section);
+      section.append(h1, p);
+      if (page === 'Engineering Work') {
+        const list = document.createElement('ul'); list.className = 'work-project-list';
+        content.projects.forEach(project => {
+          const item = document.createElement('li'); const url = safeURL(project.url);
+          const name = document.createElement(url ? 'a' : 'span'); name.textContent = project.name;
+          if (url) name.href = url;
+          item.append(name);
+          if (project.caption) {const caption=document.createElement('span');caption.textContent=project.caption;item.append(caption)}
+          list.append(item);
+        });
+        section.append(list);
+      }
+      main.append(section);
     }
     document.querySelectorAll('[data-page]').forEach(button => {
       if (button.dataset.page === page) button.setAttribute('aria-current','page');
