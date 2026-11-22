@@ -36,4 +36,4 @@
 
 添加 PNG：上传到 `assets/images/`，再在项目 HTML 使用 `<img src="../assets/images/example.png" alt="图片说明">`。新增项目或改名时同步修改 `content.json` 和项目页侧栏；目前项目页面是独立静态 HTML，不会自动由 JSON 重建。
 
-Cell-free 暂无外部目标网址，保留原状。确定后填写 `content.json` 对应项目的 `url`，并将各项目页侧栏里的 Cell-free 项改为该外部链接。
+Cell-free 直接链接到 https://pages.htgaa.org/2026a-yutong-wu/ 。若以后修改地址，需同步 `content.json`、首页备用 HTML 和各项目页侧栏。
