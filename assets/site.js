@@ -1,108 +1,47 @@
 'use strict';
-// Edit content.json to update the public website. No browser-local edits override it.
-(async function () {
+(async () => {
   const main = document.getElementById('main');
-  const homeTemplate = main.innerHTML;
-  const pages = {'home':'Home','engineering-work':'Engineering Work','arts':'Arts','readings':'Readings','blog':'Blog'};
+  const fallback = main.innerHTML;
+  const pages = {home:'Home',projects:'Projects',readings:'Readings',arts:'Arts',blog:'Blog'};
   let content;
-  function safeURL(value) {
-    if (!value) return '';
-    try { const u = new URL(value, document.baseURI); return ['https:','http:','mailto:'].includes(u.protocol) || (u.protocol === 'data:' && /^data:image\/(png|jpeg|webp|gif);base64,/i.test(value)) ? value : ''; } catch { return ''; }
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function url(value) {if(!value)return '';try {const u=new URL(value,document.baseURI);return ['https:','http:','mailto:'].includes(u.protocol)?value:''}catch{return ''}}
+  function cleanHTML(value) {
+    const doc=new DOMParser().parseFromString(value,'text/html');
+    const allowed=['P','H1','H2','STRONG','B','EM','I','A','UL','OL','LI','BR','DIV'];
+    function walk(parent){[...parent.children].forEach(el=>{if(['SCRIPT','STYLE','IFRAME','OBJECT'].includes(el.tagName)){el.remove();return}walk(el);if(!allowed.includes(el.tagName)){el.replaceWith(...el.childNodes);return}const href=el.getAttribute('href');[...el.attributes].forEach(a=>el.removeAttribute(a.name));if(el.tagName==='A'&&url(href))el.setAttribute('href',href)})}
+    walk(doc.body);return doc.body.innerHTML;
   }
+  function cards() {
+    return '<section class="projects" aria-label="Selected projects">'+content.projects.map(p=>{
+      const image=url(p.image)?'<img src="'+esc(url(p.image))+'" alt="'+esc(p.imageAlt||p.name)+'" loading="lazy">':'<span class="specimen">Photo / PNG</span>';
+      const body='<div class="picture"><div class="photo-disc">'+image+'</div></div><h2 class="taxon">'+esc(p.name)+'</h2><p class="caption"><mark class="modality-text">'+esc(p.caption)+'</mark></p><p class="project-highlight">'+esc(p.highlights)+'</p>';
+      return '<article class="project">'+(url(p.url)?'<a class="bubble-link" href="'+esc(url(p.url))+'">'+body+'</a>':body)+'</article>';
+    }).join('')+'</section>';
+  }
+  const personal={Arts:[['Photography','personal/photography.html'],['Guzheng / 古筝','personal/guzheng.html'],['Theater','personal/theater.html'],['Arts education NGO','https://letsummerbe.github.io/content/#resources']],Blog:[['German essays / 德语文章','https://yutongw.blogspot.com/']],Readings:[['Literature library / 文献库','personal/readings.html']]};
   function render() {
-    const slug = location.hash.slice(1) || 'home';
-    const page = pages[slug] || 'Home';
-    main.replaceChildren();
-    if (page === 'Home') {
-      main.innerHTML = homeTemplate;
-      main.querySelectorAll('[data-edit]').forEach(el => {
-        const key = el.dataset.edit;
-        if (!key.startsWith('p.') && Object.hasOwn(content.text, key)) el.textContent = content.text[key];
-      });
-      const projects = main.querySelector('.projects');
-      const articleTemplate = projects.querySelector('article').cloneNode(true);
-      projects.replaceChildren();
-      content.projects.forEach(p => {
-        const article = articleTemplate.cloneNode(true);
-        article.querySelector('.taxon').textContent = p.name;
-        article.querySelector('.caption').textContent = p.caption || '';
-        const picture = article.querySelector('.picture');
-        picture.replaceChildren();
-        const imageURL = safeURL(p.image);
-        if (imageURL) {
-          const image = document.createElement('img');
-          image.src = imageURL; image.alt = p.imageAlt || p.name + ' illustration'; image.loading = 'lazy';
-          picture.append(image);
-        } else {
-          const placeholder = document.createElement('span');
-          placeholder.className = 'specimen'; placeholder.textContent = 'illustration';
-          placeholder.setAttribute('aria-label', p.name + ' illustration placeholder'); picture.append(placeholder);
-        }
-        const url = safeURL(p.url);
-        if (url) {
-          const link = document.createElement('a'); link.href = url; link.className = 'project-link';
-          while (article.firstChild) link.append(article.firstChild);
-          article.append(link);
-        }
-        projects.append(article);
-      });
-    } else {
-      const section = document.createElement('section'); section.className = 'other';
-      const h1 = document.createElement('h1'); h1.textContent = page;
-      const p = document.createElement('p'); p.textContent = content.text[page.replaceAll(' ', '_')] || '';
-      section.append(h1, p);
-      if (page === 'Engineering Work') {
-        const list = document.createElement('ul'); list.className = 'work-project-list';
-        content.projects.forEach(project => {
-          const item = document.createElement('li'); const url = safeURL(project.url);
-          const name = document.createElement(url ? 'a' : 'span'); name.textContent = project.name;
-          if (url) name.href = url;
-          item.append(name);
-          if (project.caption) {const caption=document.createElement('span');caption.textContent=project.caption;item.append(caption)}
-          list.append(item);
-        });
-        section.append(list);
-      }
-      main.append(section);
-    }
-    document.querySelectorAll('[data-page]').forEach(button => {
-      if (button.dataset.page === page) button.setAttribute('aria-current','page');
-      else button.removeAttribute('aria-current');
-    });
+    const page=pages[location.hash.slice(1)]||'Home';
+    if(page==='Home') {
+      const bio=content.bioBlocks.map(b=>'<div class="bio-block" style="margin-bottom:'+Math.max(0,Number(b.spacing)||22)+'px;text-align:'+(['left','center','right'].includes(b.align)?b.align:'left')+'">'+cleanHTML(b.html)+'</div>').join('');
+      main.innerHTML='<div class="home"><section class="intro" aria-label="Introduction">'+bio+'</section>'+cards()+'</div>';
+    } else if(page==='Projects') main.innerHTML='<section class="project-catalog"><h1>Projects</h1>'+cards()+'</section>';
+    else main.innerHTML='<section class="other"><h1>'+page+'</h1><ul class="personal-list">'+personal[page].map(([label,href])=>'<li><a href="'+esc(href)+'">'+esc(label)+'</a></li>').join('')+'</ul></section>';
+    document.querySelectorAll('[data-page]').forEach(b=>{if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   }
   try {
-    const response = await fetch('./content.json', {cache:'no-cache'});
-    if (!response.ok) throw new Error('Content not available');
-    content = await response.json();
-    if (!content.text || !Array.isArray(content.projects)) throw new Error('Invalid content.json');
-    document.title = content.site.title;
-    const units = {left:'%', leftLine:'', leftAlign:''};
-    Object.entries(content.settings).forEach(([key,value]) => {
-      if (key !== 'font') document.documentElement.style.setProperty('--'+key, String(value)+(units[key] ?? 'px'));
-    });
-    if (content.settings.font === 'sans') {
-      const style = document.createElement('style'); style.textContent = 'h1,h2,.brand,.taxon{font-family:Arial,sans-serif}'; document.head.append(style);
-    }
-    const footer = document.querySelector('[data-edit="footer"]');
-    footer.textContent = content.text.footer;
-    if (content.site.email) {
-      const link = document.createElement('a'); link.href = 'mailto:'+content.site.email; link.textContent = content.site.email;
-      footer.replaceChildren(document.createTextNode('Contact: '),link);
-    }
-    const logoURL = safeURL(content.site.logo);
-    if (logoURL) {
-      const link = document.createElement('a'); link.href = '#home';
-      const image = document.createElement('img'); image.className='header-logo'; image.src=logoURL; image.alt=content.site.logoAlt || 'Home';
-      link.append(image); document.querySelector('.header').prepend(link);
-    }
-    document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => {
-      const slug = Object.keys(pages).find(key => pages[key] === button.dataset.page);
-      if (location.hash === '#'+slug) { render(); main.focus(); } else location.hash = slug;
-    }));
-    window.addEventListener('hashchange', () => {render(); main.focus();});
-    render();
-  } catch (error) {
-    console.error('Wildtype: showing the embedded backup; check content.json or serve over HTTP.', error);
-    // Preserve the readable exported homepage if the content request fails.
-  }
+    const response=await fetch('./content.json',{cache:'no-cache'});if(!response.ok)throw Error('Content unavailable');content=await response.json();
+    const units={left:'%',leftLine:'',leftAlign:''};
+    Object.entries(content.settings).forEach(([k,v])=>{if(k!=='font')document.documentElement.style.setProperty('--'+k,String(v)+(units[k]??'px'))});
+    document.documentElement.style.setProperty('--ring-width',(content.bubbles.ringWidth||10)+'px');
+    document.documentElement.style.setProperty('--photo-fit',content.bubbles.fit||'cover');
+    if(content.settings.font==='sans'){const s=document.createElement('style');s.textContent='h1,h2,.taxon{font-family:Arial,sans-serif}';document.head.append(s)}
+    render();document.documentElement.dataset.contentLoaded='true';
+    document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>{const slug=Object.keys(pages).find(k=>pages[k]===b.dataset.page);if(location.hash==='#'+slug){render();main.focus()}else location.hash=slug}));
+    window.addEventListener('hashchange',()=>{render();main.focus()});
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');let frame=0;
+    function reset(){document.querySelectorAll('.picture').forEach(el=>{el.style.removeProperty('--bx');el.style.removeProperty('--by')})}
+    document.addEventListener('pointermove',e=>{if(frame||!content.bubbles.motion||reduced.matches||e.pointerType!=='mouse')return;const x=e.clientX,y=e.clientY;frame=requestAnimationFrame(()=>{frame=0;document.querySelectorAll('.projects .picture').forEach(el=>{const r=el.getBoundingClientRect();const dx=x-(r.left+r.width/2),dy=y-(r.top+r.height/2),distance=Math.hypot(dx,dy),strength=Math.max(0,1-distance/240);el.style.setProperty('--bx',dx/(distance||1)*8*strength+'px');el.style.setProperty('--by',dy/(distance||1)*8*strength+'px')})})},{passive:true});
+    document.documentElement.addEventListener('pointerleave',reset);window.addEventListener('blur',reset);reduced.addEventListener('change',reset);
+  } catch(error) {main.innerHTML=fallback;console.error('Wildtype: displaying the saved homepage. Check content.json.',error)}
 })();

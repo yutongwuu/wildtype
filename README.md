@@ -1,39 +1,24 @@
 # Wildtype — Yutong Wu
 
-静态个人网站。无需安装依赖或运行构建，保留已确认的渐变背景、16px 左侧文字、30px 顶部留白和八个项目顺序。
+最新版网站，保留确认的比例、渐变背景、富文本介绍、错落圆圈和6张原始照片。
 
-## 修改文字
+## 修改内容
 
-在 GitHub 打开 `content.json` → 铅笔 Edit → 修改 `text` 下的文字 → Commit changes。保留 JSON 的双引号和逗号；字符串内换行写成 `\n`。`settings` 管理排版。
+- `content.json` 的 `bioBlocks`：左侧段落的 HTML。保留 `<strong>` 加粗和 `<a href="…">` 链接。
+- `projects`：项目顺序、名称、caption、highlights、图片路径与详情网址。
+- `settings`：页面宽1241px、左栏46.5%、间距90px；`bubbles`：白环10px、图片裁切和动态开关。
+- 原始图片在 `assets/images/`。图片路径填写 `assets/images/filename.png`，JPG也支持。
+- `personal/`：摄影、古筝、戏剧、德语文章、NGO及文献库的占位页面。
+- `projects/`：项目详情 HTML，可在 GitHub 中直接编辑。
 
-## 上传动物 PNG / logo
+## 本地可视化编辑
 
-1. 打开 `assets/images/`，选择 Add file → Upload files，上传 PNG 并提交。
-2. 在 `content.json` 相应项目的 `image` 中填写 `assets/images/salticid.png` 等路径；`imageAlt` 填写图片描述。
-3. `site.logo` 可以填写 `assets/images/logo.png`，留空时不显示 logo。logo 会在原左上角空位显示。
-4. `projects` 的顺序就是网页项目顺序；可用 `url` 关联实际项目页面，留空时不产生链接。
+`editor.html` 是完整独立的可视化版本，照片已内嵌。修改后下载 HTML 保存，再交回用于同步公开网站。浏览器编辑不会自动提交 GitHub。
+
+之后的改版流程：先本地修改和确认，再由用户明确要求 push。
 
 ## 发布
 
-仓库 Settings → Pages → Deploy from a branch → main → /(root) → Save。
-默认网址：https://yutongwuu.github.io/wildtype/ 。启用 Pages 后，以 GitHub 返回的网址和部署结果为准。
+Settings → Pages → Deploy from a branch → main → /(root)。网站内容由 `content.json` 驱动；HTML有无JavaScript时均可读取的备用内容。新增详情页面时请使用相对路径。
 
-## 原可视化编辑器
-
-`editor.html` 是当前版本的独立可编辑备份。它的更改只存在当前浏览器或下载的 HTML 中，不会自动修改 `content.json`、提交 GitHub 或更新公开网站。推荐以 `content.json` 为公开内容的唯一来源。
-
-## 本地预览
-
-在目录内运行 `python3 -m http.server 8000`，访问 http://localhost:8000/ 。公开版本通过 HTTP 读取 `content.json`；双击文件时只能显示导出时的静态备用内容。
-
-## 页面与可访问性
-
-目前 Engineering Work / Arts / Readings / Blog 显示可编辑的占位内容，项目详情尚未补齐。使用语义标题、有序列表、键盘焦点和替代文字；仍需实际 NVDA、键盘和手机测试，未声称通过完整可访问性审计。
-
-## 项目详情页面
-
-`projects/` 下的七个 HTML 可以直接在 GitHub 编辑。页面共享 `assets/style.css`，保持首页背景和小字号排版。项目正文目前为明确标注的占位内容，请替换为自己的项目介绍和实际成果。
-
-添加 PNG：上传到 `assets/images/`，再在项目 HTML 使用 `<img src="../assets/images/example.png" alt="图片说明">`。新增项目或改名时同步修改 `content.json` 和项目页侧栏；目前项目页面是独立静态 HTML，不会自动由 JSON 重建。
-
-Cell-free 直接链接到 https://pages.htgaa.org/2026a-yutong-wu/ 。若以后修改地址，需同步 `content.json`、首页备用 HTML 和各项目页侧栏。
+目前详情页正文和个人分类页仍有占位内容；未声称完成 NVDA 审计。BioSignals Personal Agent 尚待图片。
