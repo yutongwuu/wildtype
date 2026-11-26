@@ -15,7 +15,7 @@
   function cards() {
     return '<section class="projects" aria-label="Selected projects">'+content.projects.map(p=>{
       const image=url(p.image)?'<img src="'+esc(url(p.image))+'" alt="'+esc(p.imageAlt||p.name)+'" loading="lazy">':'<span class="specimen">Photo / PNG</span>';
-      const body='<div class="picture"><div class="photo-disc">'+image+'</div></div><h2 class="taxon">'+esc(p.name)+'</h2><p class="caption"><mark class="modality-text">'+esc(p.caption)+'</mark></p><p class="project-highlight">'+esc(p.highlights)+'</p>';
+      const body='<div class="picture"><div class="photo-disc">'+image+'</div></div><h2 class="taxon">'+esc(p.name)+'</h2><p class="caption"><mark class="modality-text">'+esc(p.caption)+'</mark></p>'+(Array.isArray(p.highlightItems)?'<ul class="project-highlight-list">'+p.highlightItems.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p class="project-highlight">'+esc(p.highlights)+'</p>');
       return '<article class="project">'+(url(p.url)?'<a class="bubble-link" href="'+esc(url(p.url))+'">'+body+'</a>':body)+'</article>';
     }).join('')+'</section>';
   }

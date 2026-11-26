@@ -43,8 +43,8 @@
   },
   "projects": [
     {
-      "name": "Salticid",
-      "caption": "Gaze + EMG assistive control",
+      "name": "Salticide",
+      "caption": "Adaptive gaze–EMG interaction",
       "image": "assets/images/salticid.jpg",
       "imageAlt": "A wearable EMG band used alongside a laptop",
       "url": "projects/salticid.html",
@@ -53,8 +53,13 @@
         "EMG",
         "assistive"
       ],
-      "highlights": "Cursor control · Residual-limb EMG · Adaptive interaction",
-      "ongoing": true
+      "highlights": "Capability-aware fusion · Interaction-driven personalization · Assistive desktop control",
+      "ongoing": true,
+      "highlightItems": [
+        "Capability-aware fusion",
+        "Interaction-driven personalization",
+        "Assistive desktop control"
+      ]
     },
     {
       "name": "EmoEMG",

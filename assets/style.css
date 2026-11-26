@@ -42,3 +42,5 @@
 .project-highlight{font:12px/1.6 Arial,sans-serif}.project .picture{margin-bottom:18px}
 @media(min-width:1100px){.projects{row-gap:68px;padding-top:4px;padding-bottom:100px}.projects .project:nth-child(4n+1){transform:translate(-5px,0)}.projects .project:nth-child(4n+2){transform:translate(5px,64px)}.projects .project:nth-child(4n+3){transform:translate(1px,16px)}.projects .project:nth-child(4n+4){transform:translate(-4px,82px)}}
 @media(max-width:1099px){.projects .project:nth-child(n){transform:none}}
+
+.project-highlight-list{font:12px/1.6 Arial,sans-serif;text-align:left;max-width:220px;margin:10px auto 0;padding-left:18px}.project-highlight-list li+li{margin-top:3px}.project:first-child .caption{font-style:italic}
